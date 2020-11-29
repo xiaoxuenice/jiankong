@@ -1,0 +1,53 @@
+我有几个数字让你看一下:
+{% for i in List %}
+<div>{{ i }} just test </div>
+{% endfor %}
+如果不是最后一项加 just test:
+{% for i in List %}
+<div>{{ i }}{% if not forloop.last %} just test {% endif %}</div>
+{% endfor %}
+我有一个变量你看看:
+{{ test }}
+</br>
+我有一个字典你看看:
+{{ Dict.one }}  {{ Dict.two}}
+</br>
+也可以这样遍历字典:
+{% for a,b in Dict.items %}
+{{ a }} {{ b }}
+{% endfor %}
+</br>
+遍历如果为空:
+{% for I in Empty %}
+	<li>{{ I }}</li>
+{% empty %}
+    	<li>nonono</li>
+{% endfor %}
+给你看个网页链接:
+{%url 'add' 3 5 as and %}
+<a href="{{and}}">加法</a>
+</br>
+if语句:
+{% if var >= 90 %}
+成绩优秀，自强学堂你没少去吧！学得不错
+{% elif var >= 80 %}
+成绩良好
+{% elif var >= 70 %}
+成绩一般
+{% elif var >= 60 %}
+需要努力
+{% else %}
+不及格啊，大哥！多去自强学堂学习啊！
+{% endif %}
+<br>
+判断是否登陆:
+{{ request.user.username }}
+{% if request.user.is_authenticated %}
+    {{ request.user.username }}，您好！
+{% else %}
+    请登陆，这里放登陆链接
+{% endif %}
+</br>
+获取当前get参数
+<a href="{{ request.path }}?{{ request.GET.urlencode }}&delete=1">当前网址加参数 delete</a>
+{{ request.GET }}

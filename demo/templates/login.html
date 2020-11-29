@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{%  static 'login/layui.css' %}">
+    <link rel="stylesheet" href="{%  static 'login/login.css' %}">
+    <title>登录管理</title>
+</head>
+<body class="login-wrap">
+    <div class="login-container">
+        <form class="login-form" method="post">
+            <div class="input-group">
+               用户名 <input type="text" name="username"  class="input-field">
+                <label for="username" class="input-label">
+                    <span class="label-title"></span>
+                </label>
+
+            </div>
+            <div class="input-group">
+                密码<input type="password"  name="password" class="input-field">
+                <label for="password" class="input-label">
+                    <span class="label-title"></span>
+                </label>
+            </div>
+            <button type="submit" class="login-button">登录<i class="ai ai-enter"></i></button>
+        </form>
+    </div>
+
+<script src="{%  static 'login/layui.js' %}"></script>
+<script src="{%  static 'login/index.js' %}" data-main="login"></script>
+</body></html>

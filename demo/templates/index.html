@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  {% load static %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>{{ name }}</title>
+  <link rel="stylesheet" href="{%  static 'css/style.css' %}">
+  <link rel="stylesheet" href="{%  static 'css/bootstrap.min.css' %}">
+  <style type="text/css">
+  body { background: #000; margin: 0; padding:0; }
+  canvas {position: fixed; z-index: -1}
+  </style>
+    <script type="text/javascript" src="{%  static 'js/jquery.min.js' %}"></script>
+  <style type="text/css">
+  #cloudtag {position:relative; width:260px; height:260px; solid #000; margin: 20px auto 0;}
+  #cloudtag a {position:absolute; top:0px; left:0px; color:#00FF00; font-weight:bold; text-decoration:none; padding: 3px 6px; }
+  #cloudtag a:hover {border: 1px solid #eee; background: #000; color:red;}
+  </style>
+  <!-- 来源网站 http://cblog.xyz/ -->
+</head>
+
+<body style="">
+  <canvas id="canvas" width=100% height=100%></canvas>
+
+  <div class="container transparent">
+    <div class="row">
+      <div class="col-lg-9">
+        <div id="category" class="noselect">
+          <div id="category-title">
+            <ul>
+              <li class="cat-item"><a href="/">Home</a>
+              </li>
+
+              <li class="cat-item"><a href="/jiankong">主机信息</a>
+              </li>
+
+              <li class="cat-item"><a href="/admin">后台管理</a>
+              </li>
+
+              <li class="cat-item"><a href="/logout">EXIT</a>
+              </li>
+
+            </ul>
+          </div>
+		 </div>
+		<div id="bd" class="wrp clear-fix">
+		<div id="main">
+<!-- start  循环  -->
+{% for i in wz %}
+        
+          
+              <div class="post">
+             	 <div class="post-hd">
+               	 <h1 class="title"><a href="/user?id={{i.id}}">{{ i.bt }}</a></h1>
+             	 </div>
+              	 <div class="post-bd">
+                 <p> {{ i.wza }} .....</p>
+                 <p><a href="#" class="more-link"></a></p>
+                 </div>
+                 <div class="post-ft">
+                 <a href="#" class="more">作者: {{ i.zz }}</a>
+                 <i class="icon-date"></i>
+                 <span class="date">{{ string }}</span>
+                 <!--i class='icon-praise'></i>-->
+                 <input type="image" class="praise" src="{%  static 'images/gb21.png' %}" href="/article/223/praise">
+                 <span class="likes_num">{{ i.core }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>今天的心情:{{i.tags}}</span>
+                 </div>
+              </div>
+            
+<!-- end  循环  -->
+{% endfor %}
+</div>
+</div>
+</div>
+<div class="col-lg-3">
+  <!-- tags -->
+  <div id="cloudtag">
+    <a href="#">python</a>
+    <a href="#">shell</a>
+    <a href="#">linux</a>
+    <a href="#">docker</a>
+    <a href="#">reboot</a>
+    <a href="#">django</a>
+    <a href="#">tkinter</a>
+    <a href="#">psutil</a>
+    <a href="#">kubernetes</a>
+    <a href="#">nginx</a>
+    <a href="#">uWSGI</a>
+  </div>
+</div>
+</div>
+</div>
+</br>
+</br>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3"><center><h2>Copyright xuewenchang</h2></center></div>
+</div>
+
+<script type="text/javascript" src="{%  static 'js/django.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/base.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/canvas-background.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/jquery.windstagball.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#cloudtag").windstagball({
+    radius:120,
+    speed:10
+  });
+});
+</script>
+</body></html>

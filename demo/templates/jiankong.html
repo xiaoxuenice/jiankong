@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  {% load static %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>运维监控平台</title>
+  <link rel="stylesheet" href="{%  static 'css/style.css' %}">
+  <link rel="stylesheet" href="{%  static 'css/bootstrap.min.css' %}">
+  <style type="text/css">
+  body { background: #000; margin: 0; padding:0; }
+  canvas {position: fixed; z-index: -1}
+  </style>
+    <script type="text/javascript" src="{%  static 'js/jquery.min.js' %}"></script>
+  <style type="text/css">
+  #cloudtag {position:relative; width:260px; height:260px; solid #000; margin: 20px auto 0;}
+  #cloudtag a {position:absolute; top:0px; left:0px; color:#00FF00; font-weight:bold; text-decoration:none; padding: 3px 6px; }
+  #cloudtag a:hover {border: 1px solid #eee; background: #000; color:red;}
+  </style>
+  <!-- 来源网站 http://cblog.xyz/ -->
+</head>
+
+<body style="">
+  <canvas id="canvas" width=100% height=100%></canvas>
+
+  <div class="container transparent">
+    <div class="row">
+      <div class="col-lg-9">
+        <div id="category" class="noselect">
+          <div id="category-title">
+            <ul>
+              <li class="cat-item"><a href="/">Home</a>
+              </li>
+
+              <li class="cat-item"><a href="/jiankong">主机信息</a>
+              </li>
+
+              <li class="cat-item"><a href="/admin">后台管理</a>
+              </li>
+
+              <li class="cat-item"><a href="/logout">EXIT</a>
+              </li>
+
+            </ul>
+          </div>
+		 </div>
+		<div id="bd" class="wrp clear-fix">
+		<div id="main">
+<!-- start  循环  -->
+{% for i in xx %}
+        
+          
+              <div class="post">
+             	 <div class="post-hd">
+               	 <h3 class="title"><a href="">{{ i.host }}</a></h3>
+             	 </div>
+              	 <div class="post-bd">
+                 <span>cpu占比:&nbsp;&nbsp;{{ i.cpulv }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>内存占比:&nbsp;&nbsp;{{ i.nclv }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>磁盘剩余:&nbsp;&nbsp;{{ i.cpsy }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>接收流量:&nbsp;&nbsp;{{ i.wkjs }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>发送流量:&nbsp;&nbsp;{{ i.wkfs }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>连接数:&nbsp;&nbsp;{{ i.ljs }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>
+                 <span>运行进程:&nbsp;&nbsp;{{ i.jcs}}</span>
+                <p><a href="#" class="more-link"></a></p>
+                 </div>
+                 <div class="post-ft">
+                 <a href="#" class="more">连接状态:  正常</a>
+                 <i class="icon-date"></i>
+                 <span class="date">数据获取时间:&nbsp;&nbsp;{{ i.hqsj }}</span>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <span>cpu核数:{{ i.cpuhs}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span> 开机时间：&nbsp;{{ i.qdsj }}</span>
+                 </div>
+              </div>
+            
+<!-- end  循环  -->
+{% endfor %}
+</div>
+</div>
+</div>
+<div class="col-lg-3">
+  <!-- 框架------------框架  -->
+  <h4 class="obvious-color">全部主机</h4>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#" aria-expanded="true" aria-controls="collapse">
+          </a>
+        </h4>
+      </div>
+      <div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading">
+        <div class="panel-body">
+{% for i in qbzj %}
+
+          <p>{{i}}</p>
+
+{% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h4 class="obvious-color">获取不到信息</h4>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#" aria-expanded="true" aria-controls="collapse">
+          </a>
+        </h4>
+      </div>
+      <div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading">
+        <div class="panel-body">
+{% for i in hqbd %}
+
+          <p>{{i}}</p>
+
+{% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+</div>
+</div>
+</br>
+</br>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3"><center><h2>Copyright xuewenchang</h2></center></div>
+</div>
+
+<script type="text/javascript" src="{%  static 'js/django.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/base.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/canvas-background.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/jquery.windstagball.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#cloudtag").windstagball({
+    radius:120,
+    speed:10
+  });
+});
+</script>
+</body></html>
