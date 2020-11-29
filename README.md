@@ -39,3 +39,4 @@ chkconfig jiankong on
 http://192.168.1.200:8888/jiankong  查看数据
 
 7，/目录是login后台里面创建用户，邮箱是账号，qq是密码
+
