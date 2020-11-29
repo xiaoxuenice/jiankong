@@ -13,17 +13,17 @@ while True:
  wkjs=str(int(psutil.net_io_counters().bytes_sent / 1000000))+'M'
  wkfs=str(int(psutil.net_io_counters().bytes_recv / 1000000))+'M'
  ip=[]
- ljs=''
+ ljs=0
  jcs=''
  for i in psutil.net_connections():
      if i.laddr.ip not in  '::1 0.0.0.0 ::127.0.0.1' and i.status == "ESTABLISHED":
         ip.append(i.raddr.ip)
- for i in Counter(ip).most_common()[:20]:    #显示前20个
-     ljs+="IP连接数 " + str(i[1])+ " "+str(i[0]) +"EOF"
+ for i in Counter(ip).most_common():    #显示前20个
+     ljs+=int(i[1])
  for i in psutil.process_iter():
      if i.status() == "running":
-            jcs+="PID "+str(i.pid) + "     进程 "+str(i.name())+"EOF"
+            jcs+=str(i.name())+" "
  
  a=requests.get("http://xiaoxue.com/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs)).content   #xiaoxue改为监控主机的IP地址
- with open("/var/log/jiankong.log",'a+') as f :
+ with open("jiankong.log",'a+') as f :
    f.write(a.decode())
