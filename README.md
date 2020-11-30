@@ -16,8 +16,8 @@ root@ceff2a3d8c26:/# exit<br>
 [root@a mnt]# docker exec  -it jiankong bash<br>
 root@ceff2a3d8c26:/# python3 manage.py makemigrations<br>
 root@ceff2a3d8c26:/# python3 manage.py migrate<br>
-python3 manage.py createsuperuser  
-#用户名密码 admin<br>
+root@ceff2a3d8c26:/# python3 manage.py createsuperuser  
+#后台用户名密码设置为 admin<br>
 
 # 3,http://192.168.1.200:8888/login/ 登陆网站<br>
 
