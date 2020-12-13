@@ -49,7 +49,8 @@
 {% for i in xx %}
         
           
-              <div class="post">
+              <div class="post" >
+		<a name={{i.host}}></a>
              	 <div class="post-hd">
                	 <h3 class="title"><a href="">{{ i.host }}</a></h3>
              	 </div>
@@ -93,7 +94,7 @@
         <div class="panel-body">
 {% for i in qbzj %}
 
-          <p>{{i}}</p>
+          <p><a href="#{{i}}" role='button' class="catalog_line _j_cataloglink" data-seq={{i}} >{{i}}</a></p>
 
 {% endfor %}
         </div>
