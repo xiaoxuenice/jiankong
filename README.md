@@ -40,7 +40,7 @@ for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
 nohup python3 /mnt/client.py &<br>
 ;;<br>
 stop)<br>
-for i in `ps -ef |grep client|awk '{print $2}'|sed -n '2,5p'`;do kill -9 $i;done<br>
+for i in `ps -ef |grep client|awk '{print $2}'`;do kill -9 $i;done<br>
 ;;<br>
 restart)<br>
 for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
