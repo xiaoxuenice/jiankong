@@ -23,7 +23,10 @@ while True:
  for i in psutil.process_iter():
      if i.status() == "running":
             jcs+=str(i.name())+" "
- 
- a=requests.get("http://xiaoxue.com/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs)).content   #xiaoxue改为监控主机的IP地址
- with open("jiankong.log",'a+') as f :
-   f.write(a.decode())
+ try:
+    a=requests.get("http://xiaoxue.com/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs)).content   #xiaoxue改为监控主机的IP地址
+    with open("jiankong.log",'a+') as f :
+      f.write(a.decode())
+ except:
+   Exception as f :
+    pass
