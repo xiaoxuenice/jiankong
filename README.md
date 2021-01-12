@@ -28,28 +28,28 @@ wget https://raw.githubusercontent.com/xiaoxuenice/jiankong/master/client.py<br>
 第27行为服务器IP地址      http://192.168.1.200:8888/receive?<br>
 # 5，写开机启动脚本，python3自己安装，pip安装好requests 和 psutil<br>
 cat >> /etc/init.d/jiankong << EOF<br>
-#!/bin/bash
-#\ chkconfig: 345 85 15
-python3=/usr/local/bin/python3
-case $1 in
-start)
-nohup python3 /mnt/client.py &
-;;
-reload)
-for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done
-nohup python3 /mnt/client.py &
-;;
-stop)
-for i in `ps -ef |grep client|awk '{print $2}'|sed -n '2,5p'`;do kill -9 $i;done
-;;
-restart)
-for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done
-nohup python3 /mnt/client.py &
-;;
-*)
-echo "what do you want to do?"
-;;
-esac
+#!/bin/bash<br>
+#\ chkconfig: 345 85 15<br>
+python3=/usr/local/bin/python3<br>
+case $1 in<br>
+start)<br>
+nohup python3 /mnt/client.py &<br>
+;;<br>
+reload)<br>
+for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
+nohup python3 /mnt/client.py &<br>
+;;<br>
+stop)<br>
+for i in `ps -ef |grep client|awk '{print $2}'|sed -n '2,5p'`;do kill -9 $i;done<br>
+;;<br>
+restart)<br>
+for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
+nohup python3 /mnt/client.py &<br>
+;;<br>
+*)<br>
+echo "what do you want to do?"<br>
+;;<br>
+esac<br>
 EOF<br>
 chmod +x /etc/init.d/jiankong<br>
 chkconfig --add jiankong<br>
