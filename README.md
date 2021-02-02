@@ -1,5 +1,10 @@
 # 1,在服务器上使用docker安装网站<br>
 docker run -dit --name  jiankong -p8888:8888 --restart always xuewenchang123/jiankong<br>
+# 安装数据库<br>
+docker run -dit --name mysql8.0  -p3306:3306 -e MYSQL_ROOT_PASSWORD=Pwd@123456 library/mysql<br>
+create database python01;<br>
+create user root identified by 'Pwd@123456';<br>
+grant all privileges on python01.* to 'root'@'%';<br>
 # 2，进入docker更改mysql数据库<br>
 [root@a mnt]# docker exec  -it jiankong bash<br>
 root@ceff2a3d8c26:/# sed -i 's/192.168.116.200/172.17.0.2/g' demo/settings.py <br>
