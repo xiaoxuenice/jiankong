@@ -26,7 +26,8 @@ while True:
  ti=time.strftime("%Y-%m-%d %H:%M:%W",time.localtime(time.time()))
  try:
     a=requests.get("http://xiaoxue.com/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs)).content   #xiaoxue改为监控主机的IP地址
-    with open("jiankong.log",'a+') as ff :
+    with open("jiankong.log",'a+') as f :
        f.write(a.decode()+ti+"\n")
- except Exception as f:
+ except Exception as ff:
+  with open("jiankong.log",'a+') as f :
    f.write(str(ff)+ti+"\n")
