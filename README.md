@@ -38,18 +38,18 @@ cat >> /etc/init.d/jiankong << EOF<br>
 python3=/usr/local/bin/python3<br>
 case $1 in<br>
 start)<br>
-nohup python3 /mnt/client.py &<br>
+nohup $python3 /mnt/client.py &<br>
 ;;<br>
 reload)<br>
 for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
-nohup python3 /mnt/client.py &<br>
+nohup $python3 /mnt/client.py &<br>
 ;;<br>
 stop)<br>
 for i in `ps -ef |grep client|awk '{print $2}'`;do kill -9 $i;done<br>
 ;;<br>
 restart)<br>
 for i in `ps -ef |grep client.py|awk '{print $2}'`;do kill -9 $i;done<br>
-nohup python3 /mnt/client.py &<br>
+nohup $python3 /mnt/client.py &<br>
 ;;<br>
 *)<br>
 echo "what do you want to do?"<br>
