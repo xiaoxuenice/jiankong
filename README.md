@@ -24,7 +24,8 @@ root@ceff2a3d8c26:/# python3 manage.py migrate<br>
 root@ceff2a3d8c26:/# python3 manage.py createsuperuser  
 后台用户名密码设置为 admin<br>
 
-# 3,http://192.168.1.200:8888/login/ 登陆网站<br>
+# 3,http://192.168.1.200:8888/admin/ 登陆网站<br>
+
 
 
 # 4,被监控主机下载脚本<br>
@@ -62,6 +63,5 @@ chkconfig jiankong on<br>
 
 # 6，每分钟上传一次数据到监控服务器<br>
 http://192.168.1.200:8888/jiankong  查看数据<br>
-
 # 7，/目录是login后台里面创建用户，邮箱是账号，qq是密码<br>
 
