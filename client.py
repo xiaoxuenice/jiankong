@@ -1,6 +1,6 @@
 import psutil,time,requests
 from collections import Counter
-host='192.168.116.200'   #自己ip地址
+host='192.168.1.200'   #自己ip地址
 while True:
  time.sleep(45)
  qdsj=str(time.strftime("%Y-%m-%d %H:%M:%W",time.localtime(psutil.boot_time())))
@@ -25,7 +25,7 @@ while True:
             jcs+=str(i.name())+" "
  ti=time.strftime("%Y-%m-%d %H:%M:%W",time.localtime(time.time()))
  try:
-    a=requests.get("http://xiaoxue.com/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs),timeout=3).content   #xiaoxue改为监控主机的IP地址
+    a=requests.get("http://192.168.116.200:8888/receive?host={}&qdsj={}&cpuhs={}&cpulv={}&ncdx={}&nclv={}&cpdx={}&cpsy={}&wkjs={}&wkfs={}&ljs={}&jcs={}".format(host,qdsj,cpuhs,cpulv,ncdx,nclv,cpdx,cpsy,wkjs,wkfs,ljs,jcs),timeout=3).content   #xiaoxue改为监控主机的IP地址
     with open("jiankong.log",'a+') as f :
        f.write(a.decode()+ti+"\n")
  except Exception as ff:
