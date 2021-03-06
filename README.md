@@ -1,3 +1,4 @@
+# jiankong可能需要安装模块 cryptography
 # 1,在服务器上使用docker安装网站<br>
 docker run -dit --name  jiankong -p8888:8888 --restart always xuewenchang123/jiankong<br>
 # 安装数据库<br>
