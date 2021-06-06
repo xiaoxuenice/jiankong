@@ -8,6 +8,7 @@ create user root identified by 'Pwd@123456';<br>
 grant all privileges on python01.* to 'root'@'%';<br>
 # 2，进入docker更改mysql数据库<br>
 [root@a mnt]# docker exec  -it jiankong bash<br>
+[root@a mnt]# pip install cryptography<br>
 root@ceff2a3d8c26:/# sed -i 's/172.17.0.2/192.168.1.200/g' demo/settings.py <br>
 root@ceff2a3d8c26:/# sed -i 's/python/python01/g' demo/settings.py <br>
 root@ceff2a3d8c26:/# cat demo/settings.py <br>
