@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import cache_page
-import time
+import time,telegram
 from blog.models import *
 from django.shortcuts import HttpResponse
 from django.http import HttpResponseRedirect
@@ -45,13 +45,15 @@ def index(request):
 def index1(request):
 	if request.session.get("login",None):
 		ido = request.GET['id']
-		sc=Article.efilter(id=ido)[0].score+1
+		sc=Article.objects.filter(id=ido)[0].score+1
 		c=Article.objects.filter(id=ido)
 		c.update(score=sc)
 		a=Article.objects.get(id=ido)
+		imageid=Article.objects.get(id=ido).image
+		images=[i.image.name for i  in Images.objects.filter(image__contains=imageid)]
 		wz={"zz":a.author.name,"bt":a.title,"wza":a.content,"core":a.score,"tags":a.tags.all()[0]}
 		string = time.strftime("%Y-%m-%d %H:%M",time.localtime(time.time()))
-		return  render(request,'home.html',{'string': string,'wz':wz,'name':request.session['name']})
+		return  render(request,'home.html',{'string': string,'wz':wz,'name':request.session['name'],'images':images})
 	else:
 		return HttpResponseRedirect("/login/")
 def indexa(request):
@@ -78,6 +80,7 @@ def logout(request):
 	request.session.flush()
 	return HttpResponseRedirect("/login/")
 def receive(request):
+	sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
 	host=request.GET['host']
 	qdsj=request.GET['qdsj']
 	cpuhs=request.GET['cpuhs']
@@ -92,6 +95,16 @@ def receive(request):
 	jcs=request.GET['jcs']
 	timeo=time.strftime("%Y%m%d%H%M%S",time.localtime(time.time()))
 	de=int(time.strftime("%Y%m%d",time.localtime(time.time())))-1
+	zhuji=[] #获取id
+	qbzj=[]
+	a=Hostnamea.objects.all().prefetch_related()
+	for i in a:
+		zhuji.append(i.id)
+	for i in zhuji:
+		try:
+			Host.objects.all().prefetch_related('host').filter(time__contains=str(sj)).order_by('-time').filter(host_id=i)[0]
+		except Exception as f:
+			qbzj.append(Hostnamea.objects.get(id=i).hostname)
 	if '1200' == time.strftime("%H%M",time.localtime(time.time())) or '1201' == time.strftime("%H%M",time.localtime(time.time())): #每天12点删除前一天监控日志
 		Host.objects.filter(time__contains=str(de)).delete()
 	try:
@@ -100,6 +113,9 @@ def receive(request):
 		Hostnamea.objects.create(hostname=host)
 		hostid=Hostnamea.objects.get(hostname=host).id
 	Host.objects.create(time=timeo,host_id=hostid,qdsj=qdsj,cpuhs=cpuhs,cpulv=cpulv,cpsy=cpsy,ncdx=ncdx,nclv=nclv,cpdx=cpdx,wkjs=wkjs,wkfs=wkfs,ljs=ljs,jcs=jcs)
+	for i in qbzj:
+				bot=telegram.Bot(token="1847399485:AAHnPB_tJYzsRe6Ljpw2EFTFLcbWySjpdco")
+				bot.send_message(chat_id='@jiqiren1211',text='{} 主机监控不到！！'.format(i))
 	return HttpResponse("ok")
 def jiankong(request):
 	sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
@@ -113,11 +129,13 @@ def jiankong(request):
 	xx=[]
 	hqbd=[]	#获取不到
 	n=0
+	chzj=[]
 	for i in zhuji:
 		try:
 			aa=Host.objects.all().prefetch_related('host').filter(time__contains=str(sj)).order_by('-time').filter(host_id=i)[0]
 			xx.append({})
 			xx[n]['host']=aa.host.hostname
+			chzj.append(str(aa.host.hostname))
 			xx[n]['qdsj']=aa.qdsj
 			xx[n]['hqsj']=aa.time[0:4]+"-"+aa.time[4:6]+"-"+aa.time[6:8]+" "+aa.time[8:10]+":"+aa.time[10:12]+":"+aa.time[12:14]
 			xx[n]['cpuhs']=aa.cpuhs
@@ -130,6 +148,7 @@ def jiankong(request):
 			xx[n]['wkfs']=aa.wkfs
 			xx[n]['ljs']=aa.ljs
 			xx[n]['jcs']=aa.jcs
+			hqbd.append(Hostnamea.objects.get(id=i).hostname)
 		except Exception as f:
 			hqbd.append(Hostnamea.objects.get(id=i).hostname)
 		n+=1
