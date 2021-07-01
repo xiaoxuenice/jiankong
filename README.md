@@ -1,23 +1,24 @@
 #!/bin/bash
 # jiankong可能需要安装模块 cryptography
-# 1,在服务器上使用docker安装网站
-docker run -dit --name  jiankong -p8888:8888 --restart always xuewenchang123/jiankong
+docker network create --driver bridge --subnet 172.22.0.1/16 n3
 # 安装数据库
-docker run -dit --name mysql8.0  -p3306:3306 -e MYSQL_ROOT_PASSWORD=Pwd@123456 library/mysql
+docker run -dit --name mysql8.0  -p3306:3306 --network=n3 --ip=172.22.0.2 --restart always -e MYSQL_ROOT_PASSWORD=Pwd@123456 library/mysql
 create database python01;
 create user root identified by 'Pwd@123456';
 grant all privileges on python01.* to 'root'@'%';
+# 1,在服务器上使用docker安装网站
+docker run -dit --name  jiankong -p8888:8888 --network=n3 --ip=172.22.0.3 --restart always xuewenchang123/jiankong
 # 2，进入docker更改mysql数据库<br>
 [root@a mnt]# docker exec  -it jiankong bash
 root@ceff2a3d8c26:/# pip install cryptography
-root@ceff2a3d8c26:/# sed -i 's/172.17.0.2/192.168.1.200/g' demo/settings.py 
+root@ceff2a3d8c26:/# sed -i 's/192.168.1.200/172.22.0.2/g' demo/settings.py 
 root@ceff2a3d8c26:/# sed -i 's/python/python01/g' demo/settings.py 
 root@ceff2a3d8c26:/# cat demo/settings.py 
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'python01',
         'USER': 'root',
         'PASSWORD':'Pwd@123456',
-        'HOST':'172.17.0.2',
+        'HOST':'172.22.0.2',
         'PORT':'3306',
 root@ceff2a3d8c26:/# exit
 [root@a mnt]# docker restart jiankong
