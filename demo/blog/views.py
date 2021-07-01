@@ -154,7 +154,6 @@ def jiankong(request):
 			xx[n]['wkfs']=aa.wkfs
 			xx[n]['ljs']=aa.ljs
 			xx[n]['jcs']=aa.jcs
-			hqbd.append(Hostnamea.objects.get(id=i).hostname)
 		except Exception as f:
 			hqbd.append(Hostnamea.objects.get(id=i).hostname)
 		n+=1
