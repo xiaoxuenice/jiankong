@@ -80,7 +80,10 @@ def logout(request):
 	request.session.flush()
 	return HttpResponseRedirect("/login/")
 def receive(request):
-	sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
+	if  time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[10:12] == '00':
+				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-41
+	else:
+				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
 	host=request.GET['host']
 	qdsj=request.GET['qdsj']
 	cpuhs=request.GET['cpuhs']
@@ -119,10 +122,9 @@ def receive(request):
 	return HttpResponse("ok")
 def jiankong(request):
 	if  time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[10:12] == '00':
-                sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-41
-        else:
-                sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
-
+				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-41
+	else:
+				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
 	sjnow=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
 	zhuji=[] #获取id
 	qbzj=[]	#全部主机
