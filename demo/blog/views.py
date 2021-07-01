@@ -137,8 +137,11 @@ def jiankong(request):
 	n=0
 	chzj=[]
 	for i in zhuji:
-		try:
-			aa=Host.objects.all().prefetch_related('host').filter(time__contains=str(sj)).order_by('-time').filter(host_id=i)[0]
+			try:
+				aa=Host.objects.all().prefetch_related('host').filter(time__contains=str(sj)).order_by('-time').filter(host_id=i)[0]
+			except Exception as f:
+				hqbd.append(Hostnamea.objects.get(id=i).hostname)
+				continue
 			xx.append({})
 			xx[n]['host']=aa.host.hostname
 			chzj.append(str(aa.host.hostname))
@@ -154,7 +157,5 @@ def jiankong(request):
 			xx[n]['wkfs']=aa.wkfs
 			xx[n]['ljs']=aa.ljs
 			xx[n]['jcs']=aa.jcs
-		except Exception as f:
-			hqbd.append(Hostnamea.objects.get(id=i).hostname)
-		n+=1
+			n+=1
 	return  render(request,'jiankong.html',{'xx':xx,'sjnow':sjnow,'hqbd':hqbd,'qbzj':qbzj})
