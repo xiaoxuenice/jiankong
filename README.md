@@ -40,7 +40,7 @@ wget https://raw.githubusercontent.com/xiaoxuenice/jiankong/master/client.py
 cat >> /etc/init.d/jiankong << EOF
 #!/bin/bash
 # chkconfig: 345 85 15
-python3=/usr/local/bin/python3
+python3=/usr/local/python/bin/python3
 case $1 in
 start)
 nohup $python3 /mnt/client.py &
