@@ -118,7 +118,11 @@ def receive(request):
 				bot.send_message(chat_id='@jiqiren1211',text='{} 主机监控不到！！'.format(i))
 	return HttpResponse("ok")
 def jiankong(request):
-	sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
+	if  time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[10:12] == '00':
+                sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-41
+        else:
+                sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
+
 	sjnow=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
 	zhuji=[] #获取id
 	qbzj=[]	#全部主机
