@@ -121,7 +121,10 @@ def receive(request):
 				bot.send_message(chat_id='@jiqiren1211',text='{} 主机监控不到！！'.format(i))
 	return HttpResponse("ok")
 def jiankong(request):
-	if  time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[10:12] == '00':
+	if time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[8:12] == '0000':
+				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-7641
+
+	elif  time.strftime("%Y%m%d%H%M",time.localtime(time.time()))[10:12] == '00':
 				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-41
 	else:
 				sj=int(time.strftime("%Y%m%d%H%M",time.localtime(time.time())))-1
